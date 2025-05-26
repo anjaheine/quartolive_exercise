@@ -1,7 +1,7 @@
 # quartolive_exercise
 
 Includes two templates to be used with quarto-live (live-html format).
-Unfortunately I could not make any of the existing tools work with this format.
+Unfortunately I could not make any of the existing tools work with this format as to include interactive multiple choice questions.
 Therefore I created a custom solution using mostly ojs.
 
 **template_mc1.qmd** mostly uses ojs obersavle input but does not always behave as expected regarding the buttons.
