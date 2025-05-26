@@ -4,11 +4,11 @@ Includes two templates to be used with quarto-live (live-html format).
 Unfortunately I could not make any of the existing tools work with this format.
 Therefore I created a custom solution using mostly ojs.
 
-template_mc1 mostly uses ojs obersavle input but does not always behave as expected regarding the buttons.
+**template_mc1.qmd** mostly uses ojs obersavle input but does not always behave as expected regarding the buttons.
 After hitting the check button the output is updated continuously.
 The again button does not reset the checkbox fields.
 
-template_mc2 mostly uses traditional html input and an ojs obervable button.
+**template_mc2.qmd** mostly uses traditional html input and an ojs obervable button.
 Features some additional styling and a fully working reset button.
 
 ![Screenshot of MCQuestion](mcquestion.jpg)
