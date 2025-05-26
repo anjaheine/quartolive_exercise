@@ -11,6 +11,8 @@ The again button does not reset the checkbox fields, only prevents the outpt mes
 **template_mc2.qmd** mostly uses traditional html input and an ojs obervable button.
 Features some additional styling and a fully working reset button. The code is longe but I much prefer this solution.
 
+The following Screenshots show the result of my second solution: **template_mc2.qmd**
+
 ![Screenshot of MCQuestion](mcquestion.jpg)
 ![Screenshot of MCQuestion after check](mcquestion_2.jpg)
 
