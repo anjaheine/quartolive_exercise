@@ -11,6 +11,7 @@ The again button does not reset the checkbox fields.
 template_mc2 mostly uses traditional html input and an ojs obervable button.
 Features some additional styling and a fully working reset button.
 
-![Screenshot of the Solution](mcquestion.jpg)
+![Screenshot of MCQuestion](mcquestion.jpg)
+![Screenshot of MCQuestion after check](mcquestion_2.jpg)
 
 This is my first time actively using ojs (and JavaScript) so it's probably not an elegant solution.
