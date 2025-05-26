@@ -1,0 +1,96 @@
+---
+title: "template_mc1"
+format: live-html
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Template using obervable input
+
+Unfortunately does not behave perfectly when the input is changed after checking the answers. Does not reset checkboxes when hitting "again".
+When multiple of these questions are used does require renaming checkbox IDs and button names.
+
+webr fields work regularly.
+
+```{webr}
+
+```
+
+
+::: {.panel-tabset}
+## Question
+
+```{ojs}
+//| echo: false
+html`<b>This is a question where Option C is the correct answer.</b>`
+html`<br>`
+viewof answer = Inputs.form([
+  Inputs.checkbox(["Option A"]), 
+  Inputs.checkbox(["Option B"]),
+  Inputs.checkbox(["Option C"]),
+  Inputs.checkbox(["Option D"])
+])
+html`<br>`
+
+html`${await ojscorrect(answerstud, answerkey, checkbtn)}`
+
+viewof checkbtn = Inputs.button([
+  ["Check", value => value + 1],
+  ["Again", value => 0]
+], {value: 0})
+
+// Map the options to mark the correct ones
+answerkey = [0,0,1,0]
+
+// Convert checkbox answers to flat array
+answerstud = answer.map(subArray => {
+  if (subArray.length === 0) {
+    return 0;
+  } else {
+    return 1;
+  }
+})
+
+```
+
+```{webr}
+#| edit: false
+#| output: false
+#| input:
+#|   - answerstud
+#|   - answerkey
+#|   - checkbtn
+#| define:
+#|   - ojscorrect
+
+# Function to evaluate the answer
+ojscorrect <- function(answerstud, answerkey, checkbtn) {
+  if (checkbtn > 0)
+    if (identical(answerstud, answerkey) == TRUE)
+      return('<p><span style="color:green; font-weight:bold">Yes! Awesome!</span>')
+    else
+      return('<p><span style="color:red; font-weight:bold">Please try again...</span>')
+  else
+    return('')
+}
+
+```
+
+## Hint
+::: {.callout-note}
+## Hint
+
+Option C is correct.
+:::
+
+## Solution
+::: {.callout-tip}
+## Solution
+
+This is just a template for a multiple-choice question. You can modify the options and the correct answer as needed. Unfortunately it doesn't work perfectly as the answer keeps updating when the check button is pressed. 
+It's a work in progress.
+:::
+
+:::
+
+

@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "template_mc2.html",
+    "href": "template_mc2.html",
+    "title": "2  template_mc",
+    "section": "",
+    "text": "3 Template using traditional HTML input\nDoes work as expected regarding the “Check” and “Again” buttons. Adds some css styling.Required Code is longer. When multiple of these questions are used does require renaming checkbox IDs and button names. Not sure if I prefer Hint and Solution as collapsible callouts or as tabs.\nwebr fields work regularly.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>template_mc</span>"
+    ]
+  },
+  {
+    "objectID": "template_mc2.html#question",
+    "href": "template_mc2.html#question",
+    "title": "2  template_mc",
+    "section": "3.1 Question",
+    "text": "3.1 Question\n\nquestion = \"This is a question where Option C is the correct answer.\"\noptA = \"Option A\"\noptB = \"Option B\"\noptC = \"Option C\"\noptD = \"Option D\"\n\n// Map the options to mark the correct answers\nanswerkey = [0,0,1,0]\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhtmlFrageMitCheckboxes = html`\n&lt;div&gt;\n  &lt;b&gt;${question}&lt;/b&gt;&lt;br&gt;&lt;br&gt;\n\n  &lt;div class=\"arow\"&gt;\n    &lt;input type=\"checkbox\" id=\"OptA\"&gt;\n    &lt;label for=\"OptA\" class=\"alabel\"&gt;${optA}&lt;/label&gt;\n  &lt;/div&gt;\n\n  &lt;div class=\"arow\"&gt;\n    &lt;input type=\"checkbox\" id=\"OptB\"&gt;\n    &lt;label for=\"OptB\" class=\"alabel\"&gt;${optB}&lt;/label&gt;\n  &lt;/div&gt;\n\n  &lt;div class=\"arow\"&gt;\n    &lt;input type=\"checkbox\" id=\"OptC\"&gt;\n    &lt;label for=\"OptC\" class=\"alabel\"&gt;${optC}&lt;/label&gt;\n  &lt;/div&gt;\n\n  &lt;div class=\"arow\"&gt;\n    &lt;input type=\"checkbox\" id=\"OptD\"&gt;\n    &lt;label for=\"OptD\" class=\"alabel\"&gt;${optD}&lt;/label&gt;\n  &lt;/div&gt;\n  &lt;br&gt;\n&lt;/div&gt;`\n\n\n\n\n\n\n\nviewof checkbtn = Inputs.button([\n  [\"Check\", value =&gt; value + 2],\n  [\"Again\", value =&gt; -1]\n], {value: 0})\n\n\n\n\n\n\n\ncheckboxResetHandler = {\n  checkbtn;\n  if (checkbtn === -1) {\n    const checkboxIDs = [\"OptA\", \"OptB\", \"OptC\", \"OptD\"]; \n    checkboxIDs.forEach(id =&gt; {\n      const checkboxElement = document.getElementById(id);\n      if (checkboxElement) {\n        checkboxElement.checked = false;\n      }\n    });\n  }\n}\n\n\n\n\n\n\n\ndisplay = {\n  checkbtn;\n  const checkboxIDs = [\"OptA\", \"OptB\", \"OptC\", \"OptD\"];\n  const answerstud = checkboxIDs.map(id =&gt; {\n    const checkboxElement = document.getElementById(id);\n    return checkboxElement && checkboxElement.checked ? 1 : 0;\n  });\n  const result = ojscorrect(answerstud, answerkey);\n  return result\n}\n\nhtml`${await display}`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint\n\n\n\n\n\nOption C is correct. Just mark it and click “Check”.\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\nThis is just a template for a multiple-choice question. You can modify the options and the correct answer as needed. It’s a work in progress.\n\n\n\n\nmcCSS = html`\n&lt;style&gt;\n  .arow {\n    background-color: gainsboro; \n    padding: 8px 10px;          \n    margin-bottom: 4px;     \n    border-radius: 4px;\n    display: flex;\n  }\n\n  .arow input[type=\"checkbox\"] {\n    margin-right: 10px; \n  }\n\n  .alabel {\n    color: black;\n    font-size: 1em;\n    flex-grow: 1;\n  }\n&lt;/style&gt;\n`",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>template_mc</span>"
+    ]
+  },
+  {
+    "objectID": "template_mc1.html",
+    "href": "template_mc1.html",
+    "title": "1  template_mc1",
+    "section": "",
+    "text": "2 Template using obervable input\nUnfortunately does not behave perfectly when the input is changed after checking the answers. Does not reset checkboxes when hitting “again”. When multiple of these questions are used does require renaming checkbox IDs and button names.\nwebr fields work regularly.\n\n\n\n\n\n\n\n\n\nQuestionHintSolution\n\n\n\nhtml`&lt;b&gt;This is a question where Option C is the correct answer.&lt;/b&gt;`\n\n\n\n\n\n\n\nhtml`&lt;br&gt;`\n\n\n\n\n\n\n\nviewof answer = Inputs.form([\n  Inputs.checkbox([\"Option A\"]), \n  Inputs.checkbox([\"Option B\"]),\n  Inputs.checkbox([\"Option C\"]),\n  Inputs.checkbox([\"Option D\"])\n])\nhtml`&lt;br&gt;`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhtml`${await ojscorrect(answerstud, answerkey, checkbtn)}`\n\n\n\n\n\n\n\nviewof checkbtn = Inputs.button([\n  [\"Check\", value =&gt; value + 1],\n  [\"Again\", value =&gt; 0]\n], {value: 0})\n\n// Map the options to mark the correct ones\nanswerkey = [0,0,1,0]\n\n// Convert checkbox answers to flat array\nanswerstud = answer.map(subArray =&gt; {\n  if (subArray.length === 0) {\n    return 0;\n  } else {\n    return 1;\n  }\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHint\n\n\n\nOption C is correct.\n\n\n\n\n\n\n\n\n\n\nSolution\n\n\n\nThis is just a template for a multiple-choice question. You can modify the options and the correct answer as needed. Unfortunately it doesn’t work perfectly as the answer keeps updating when the check button is pressed. It’s a work in progress.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>template_mc1</span>"
+    ]
+  }
+]

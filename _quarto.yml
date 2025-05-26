@@ -1,0 +1,18 @@
+project:
+  type: book
+
+book:
+  title: "quartolive_book"
+  author: "Norah Jones"
+  date: "26.5.2025"
+  chapters:
+    - index.qmd
+    - template_mc1.qmd
+    - template_mc2.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format: live-html
+
+

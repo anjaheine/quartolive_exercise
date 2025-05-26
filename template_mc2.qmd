@@ -1,0 +1,164 @@
+---
+title: "template_mc"
+format: live-html
+---
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Template using traditional HTML input
+
+Does work as expected regarding the "Check" and "Again" buttons.
+Adds some css styling.Required Code is longer.
+When multiple of these questions are used does require renaming checkbox IDs and button names.
+Not sure if I prefer Hint and Solution as collapsible callouts or as tabs.
+
+webr fields work regularly.
+
+```{webr}
+
+```
+
+## Question
+
+```{ojs}  
+//| echo: false
+question = "This is a question where Option C is the correct answer."
+optA = "Option A"
+optB = "Option B"
+optC = "Option C"
+optD = "Option D"
+
+// Map the options to mark the correct answers
+answerkey = [0,0,1,0]
+```
+
+```{ojs}
+//| echo: false
+ 
+htmlFrageMitCheckboxes = html`
+<div>
+  <b>${question}</b><br><br>
+
+  <div class="arow">
+    <input type="checkbox" id="OptA">
+    <label for="OptA" class="alabel">${optA}</label>
+  </div>
+
+  <div class="arow">
+    <input type="checkbox" id="OptB">
+    <label for="OptB" class="alabel">${optB}</label>
+  </div>
+
+  <div class="arow">
+    <input type="checkbox" id="OptC">
+    <label for="OptC" class="alabel">${optC}</label>
+  </div>
+
+  <div class="arow">
+    <input type="checkbox" id="OptD">
+    <label for="OptD" class="alabel">${optD}</label>
+  </div>
+  <br>
+</div>`
+```
+
+```{ojs}  
+//| echo: false
+viewof checkbtn = Inputs.button([
+  ["Check", value => value + 2],
+  ["Again", value => -1]
+], {value: 0})
+```
+
+```{ojs}  
+//| echo: false
+checkboxResetHandler = {
+  checkbtn;
+  if (checkbtn === -1) {
+    const checkboxIDs = ["OptA", "OptB", "OptC", "OptD"]; 
+    checkboxIDs.forEach(id => {
+      const checkboxElement = document.getElementById(id);
+      if (checkboxElement) {
+        checkboxElement.checked = false;
+      }
+    });
+  }
+}
+```
+
+```{ojs}  
+//| echo: false
+display = {
+  checkbtn;
+  const checkboxIDs = ["OptA", "OptB", "OptC", "OptD"];
+  const answerstud = checkboxIDs.map(id => {
+    const checkboxElement = document.getElementById(id);
+    return checkboxElement && checkboxElement.checked ? 1 : 0;
+  });
+  const result = ojscorrect(answerstud, answerkey);
+  return result
+}
+
+html`${await display}`
+
+```
+
+```{webr}
+#| edit: false
+#| output: false
+#| input:
+#|   - checkbtn
+#| define:
+#|   - ojscorrect
+
+# Function to evaluate the answer
+ojscorrect <- function(answerstud, answerkey) {
+  if (checkbtn > 0)
+    if (identical(answerstud, answerkey) == TRUE)
+      return('<br><p><span style="color:green; font-weight:bold">Yes! Awesome!</span>')
+    else
+      return('<br><p><span style="color:red; font-weight:bold">Please try again...</span>')
+  else
+    return('')
+}
+
+```
+
+::: {.callout-note collapse="true"}
+## Hint
+
+Option C is correct. Just mark it and click "Check".
+:::
+
+::: {.callout-tip collapse="true"}
+## Solution
+
+This is just a template for a multiple-choice question. You can modify the options and the correct answer as needed. It's a work in progress.
+:::
+
+
+```{ojs}
+//| echo: false
+
+mcCSS = html`
+<style>
+  .arow {
+    background-color: gainsboro; 
+    padding: 8px 10px;          
+    margin-bottom: 4px;     
+    border-radius: 4px;
+    display: flex;
+  }
+
+  .arow input[type="checkbox"] {
+    margin-right: 10px; 
+  }
+
+  .alabel {
+    color: black;
+    font-size: 1em;
+    flex-grow: 1;
+  }
+</style>
+`
+```
+
