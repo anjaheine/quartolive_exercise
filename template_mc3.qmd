@@ -1,0 +1,34 @@
+---
+title: "template_mc1"
+format: live-html
+---
+
+{{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
+
+# Template using ojs for text input questions
+
+```{ojs}
+//| echo: false
+correctAnswer = 4
+
+feedback = {
+  if (userAnswer === "") {
+    return ""
+  }
+  else {
+    return userAnswer == correctAnswer ? "✅ Correct!" : "❌ Try again."
+  }
+}
+```
+
+**What is 2 + 2?**
+
+```{ojs}
+//| echo: false
+viewof userAnswer = Inputs.text({placeholder: "Your Answer",submit: true, value: ""})
+```
+
+```{ojs}
+//| echo: false
+html`${feedback}`
+```

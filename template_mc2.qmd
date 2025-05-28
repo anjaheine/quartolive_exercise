@@ -8,10 +8,11 @@ format: live-html
 
 Does work as expected regarding the "Check" and "Again" buttons.
 Adds some css styling.Required Code is longer.
-When multiple of these questions are used does require renaming checkbox IDs and button names.
+When multiple of these questions are used on the same page does require renaming manual checkbox IDs and button names.
+
 Not sure if I prefer Hint and Solution as collapsible callouts or as tabs.
 
-webr fields work regularly.
+Ipdated the code to use ojs for checking the answer so there's no ojs error being dispplayd while webr is loading packages
 
 ```{webr}
 
@@ -94,7 +95,7 @@ display = {
     const checkboxElement = document.getElementById(id);
     return checkboxElement && checkboxElement.checked ? 1 : 0;
   });
-  const result = ojscorrect(answerstud, answerkey);
+  const result = ojscorrect(answerstud, answerkey, checkbtn);
   return result
 }
 
@@ -102,25 +103,20 @@ html`${await display}`
 
 ```
 
-```{webr}
-#| edit: false
-#| output: false
-#| input:
-#|   - checkbtn
-#| define:
-#|   - ojscorrect
+```{ojs}
+//| echo: false
 
-# Function to evaluate the answer
-ojscorrect <- function(answerstud, answerkey) {
-  if (checkbtn > 0)
-    if (identical(answerstud, answerkey) == TRUE)
-      return('<br><p><span style="color:green; font-weight:bold">Yes! Awesome!</span>')
-    else
-      return('<br><p><span style="color:red; font-weight:bold">Please try again...</span>')
-  else
-    return('')
+function ojscorrect(answerStud, answerKey, checkBtn) {
+  if (checkBtn > 0) {
+    if (answerStud === answerKey) {
+      return `<p><span style="color:green; font-weight:bold">✅ Yes! Awesome!</span></p>`;
+    } else {
+      return `<p><span style="color:red; font-weight:bold"> ❌ Please try again...</span></p>`;
+    }
+  } else {
+    return '';
+  }
 }
-
 ```
 
 ::: {.callout-note collapse="true"}
