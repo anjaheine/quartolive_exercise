@@ -1,5 +1,5 @@
 ---
-title: "template_mc"
+title: "template_mc2"
 format: live-html
 ---
 {{< include ./_extensions/r-wasm/live/_knitr.qmd >}}
@@ -12,7 +12,7 @@ When multiple of these questions are used on the same page does require renaming
 
 Not sure if I prefer Hint and Solution as collapsible callouts or as tabs.
 
-Ipdated the code to use ojs for checking the answer so there's no ojs error being dispplayd while webr is loading packages
+Updated the code to use ojs for checking the answer so there's no ojs error being displayed while webr is loading packages. Had a bug in a previous iteration but does work fine now.
 
 ```{webr}
 
@@ -89,35 +89,35 @@ checkboxResetHandler = {
 ```{ojs}  
 //| echo: false
 display = {
-  checkbtn;
+  checkbtn; 
+  if (checkbtn <= 0) {
+    if (checkbtn === 0) { // Initial state
+      return html`<div>`;
+    } else { 
+      return html`<div>`;
+    }
+  }
+
   const checkboxIDs = ["OptA", "OptB", "OptC", "OptD"];
   const answerstud = checkboxIDs.map(id => {
     const checkboxElement = document.getElementById(id);
     return checkboxElement && checkboxElement.checked ? 1 : 0;
   });
-  const result = ojscorrect(answerstud, answerkey, checkbtn);
-  return result
-}
 
+  const isCorrect = answerkey.length === answerstud.length &&
+                    answerkey.every((value, index) => value === answerstud[index]);
+
+  if (isCorrect) {
+    return html`<br><p><span style="color:green; font-weight:bold;">Yes! Awesome!</span></p>`;
+  } else {
+    return html`<br><p><span style="color:red; font-weight:bold;">Please try again...</span></p>`;
+  }
+}
 html`${await display}`
 
 ```
 
-```{ojs}
-//| echo: false
 
-function ojscorrect(answerStud, answerKey, checkBtn) {
-  if (checkBtn > 0) {
-    if (answerStud === answerKey) {
-      return `<p><span style="color:green; font-weight:bold">✅ Yes! Awesome!</span></p>`;
-    } else {
-      return `<p><span style="color:red; font-weight:bold"> ❌ Please try again...</span></p>`;
-    }
-  } else {
-    return '';
-  }
-}
-```
 
 ::: {.callout-note collapse="true"}
 ## Hint

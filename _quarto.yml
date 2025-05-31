@@ -9,6 +9,7 @@ book:
     - index.qmd
     - template_mc1.qmd
     - template_mc2.qmd
+    - template_mc3.qmd
     - references.qmd
 
 bibliography: references.bib

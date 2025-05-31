@@ -1,5 +1,5 @@
 ---
-title: "template_mc1"
+title: "template_mc3"
 format: live-html
 ---
 
@@ -16,7 +16,7 @@ feedback = {
     return ""
   }
   else {
-    return userAnswer == correctAnswer ? "✅ Correct!" : "❌ Try again."
+    return userAnswer == correctAnswer ? "Correct!" : "Try again."
   }
 }
 ```
